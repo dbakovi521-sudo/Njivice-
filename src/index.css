@@ -1,0 +1,161 @@
+
+/* TYPOGRAPHY — the site's two font roles are CSS variables, set ONCE here.
+   Nivice Apartmani uses Outfit (display) with Inter (body): geometric, warm,
+   modern — friendly rather than corporate. */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+    /* Palette: warm off-white paper, deep navy ink, one Adriatic teal accent. */
+    --background: 45 33% 98%;        /* #FBFAF7 */
+    --foreground: 206 40% 12%;       /* #13212C */
+
+    --card: 0 0% 100%;
+    --card-foreground: 206 40% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 206 40% 12%;
+
+    --primary: 179 82% 31%;          /* #0E8F8C */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 176 39% 93%;        /* #E6F4F3 */
+    --secondary-foreground: 206 40% 12%;
+
+    --muted: 176 39% 93%;
+    --muted-foreground: 205 12% 41%; /* #5C6B76 */
+
+    --accent: 176 39% 93%;
+    --accent-foreground: 206 40% 12%;
+
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 40 20% 88%;            /* #E7E3DB */
+    --input: 40 20% 88%;
+    --ring: 179 82% 31%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 45 33% 98%;
+    --sidebar-foreground: 206 40% 12%;
+    --sidebar-primary: 179 82% 31%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 176 39% 93%;
+    --sidebar-accent-foreground: 206 40% 12%;
+    --sidebar-border: 40 20% 88%;
+    --sidebar-ring: 179 82% 31%;
+  }
+
+  .dark {
+    --background: 206 40% 12%;
+    --foreground: 45 33% 98%;
+
+    --card: 206 38% 16%;
+    --card-foreground: 45 33% 98%;
+
+    --popover: 206 38% 16%;
+    --popover-foreground: 45 33% 98%;
+
+    --primary: 179 60% 45%;
+    --primary-foreground: 206 40% 12%;
+
+    --secondary: 206 30% 22%;
+    --secondary-foreground: 45 33% 98%;
+
+    --muted: 206 30% 22%;
+    --muted-foreground: 205 15% 70%;
+
+    --accent: 206 30% 22%;
+    --accent-foreground: 45 33% 98%;
+
+    --destructive: 0 60% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 206 25% 26%;
+    --input: 206 25% 26%;
+    --ring: 179 60% 45%;
+
+    --sidebar-background: 206 40% 12%;
+    --sidebar-foreground: 45 33% 98%;
+    --sidebar-primary: 179 60% 45%;
+    --sidebar-primary-foreground: 206 40% 12%;
+    --sidebar-accent: 206 30% 22%;
+    --sidebar-accent-foreground: 45 33% 98%;
+    --sidebar-border: 206 25% 26%;
+    --sidebar-ring: 179 60% 45%;
+  }
+}
+
+@layer base {
+  /* Smooth anchor scrolling. Each section carries `scroll-mt-24`, which parks
+     the section heading just below the sticky header instead of underneath it. */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans dark:bg-background dark:text-foreground;
+  }
+
+  pre, code {
+    @apply font-mono;
+  }
+
+  /* No hanging words. A headline must never strand one word on its last
+     line; `balance` evens the line lengths so the last line carries its
+     share, and `pretty` keeps paragraphs and list items from ending on a
+     lone orphan. */
+  h1, h2, h3, h4, h5, h6, blockquote, figcaption, legend, summary {
+    text-wrap: balance;
+  }
+
+  /* Headings speak in the display face; the body face is set on <body>
+     via `font-sans`. Display text placed in a div/span (hero lines, big
+     stats, pull quotes) should add `font-display` explicitly. */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+
+  p, li, dd, dt {
+    text-wrap: pretty;
+  }
+}
+
+/* Keyframes for the design kit (src/components/kit). Marquee scrolls its
+   duplicated track exactly one copy's width; GradientText sweeps a
+   200%-wide gradient across the glyphs. */
+@keyframes kit-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes kit-gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.markdown-editor {
+  @apply font-mono text-base leading-relaxed;
+}
+
+.markdown-preview {
+  @apply prose max-w-none prose-blue dark:prose-invert;
+}
